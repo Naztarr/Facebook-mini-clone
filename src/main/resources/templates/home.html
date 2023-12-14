@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #3b5998;
+            color: #fff;
+            padding: 10px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav input[type="text"] {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        nav button {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4267B2;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        main {
+            display: flex;
+        }
+
+        aside {
+            width: 250px;
+            background-color: #f0f2f5;
+            padding: 12px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture {
+            width: 70px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-right: 15px;
+        }
+
+        .user-name {
+            font-weight: bold;
+
+        }
+
+        .feed {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .post {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #818ca2;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            color: white;
+            background-color: #043679;
+            border-radius: 12px;
+        }
+
+        .user-posts {
+            text-align: left;
+        }
+        .post1 {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            margin-bottom: 10px;
+            background-color: #3b5998;
+            width: 600px;
+            height: 100px;
+
+        }
+
+        .post1 textarea{
+            width: 100%;
+            height: 80%;
+        }
+        .post-actions textarea{
+            width: 16%;
+            height: 6%;
+        }
+
+        .user-posts h2 {
+            margin-bottom: 10px;
+            color: #166fe5;
+        }
+
+        .Post-btn{
+            border-radius: 36%;
+        }
+        .post-actions button{
+            border-radius: 12px;
+            padding: 2px 4px;
+            background-color: #5475b9;
+            color: white;
+            height: 2%;
+        }
+        .post1 button{
+            background-color: #5475b9;
+            color: white;
+            border-bottom-color: #3b5998;
+        }
+        button:hover {
+            background-color: #163981;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo">Facebook</div>
+        <input type="text" placeholder="Search...">
+        <button>Search</button>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" >Logout</button>
+        </form>
+    </nav>
+</header>
+<main>
+    <aside>
+        <div class="profile">
+            <div class="profile-picture"></div>
+            <div class="user-name" th:if="${session.containsKey('user_session')}" th:text="${session.user_session.getFirstName()}">User's Name</div>
+        </div>
+        <!-- Other sidebar elements (friends, etc.) can be added here -->
+    </aside>
+    <section class="feed">
+        <div class="post">
+            <div class="user-info">
+                <div class="profile-picture"></div>
+                <li  th:if="${session.containsKey('user_session')}" th:text="${session.user_session.getFirstName()}">
+                    <a  href="timeline.html"><b>Facebook</b></a>
+            </div>
+            <div >
+                <div>
+                    <!-- <img class="profile-pic-icon-three mt-4" src="images/edema.jpeg" alt=""> -->
+                    <b><p th:if="${session.containsKey('user_session')}" th:text="${session.user_session.getFullName()}"></p></b>
+                    <p><b>Verified User</b></p>
+                </div>
+            </div>
+        </div>
+        <section class="user-posts">
+            <h2>User Posts</h2>
+            <form class="post1" th:action="@{/saveNewPost}" th:object="${newPost}" method="POST">
+                <label>
+                    <textarea th:field="*{content}" class="comment-btn" placeholder="what's on your mind"></textarea>
+                </label><br/>
+                <button type="submit" class="Post-btn">Post</button>
+            </form>
+        </section>
+    </section>
+                                                        <!--POSTS-->
+    <div>
+        <div><h4>Posts</h4></div>
+    </div>
+    <tr th:each="post : ${listPosts}">
+        <div>
+            <div>
+                <div class="post">
+
+                    <hr>
+                    <b><p th:text="${post.getUsers().getFullName()}"></p></b>
+                    <hr>
+                    <div >
+                        <p th:text="${post.content}">
+                            PLACEHOLDER
+                            <!-- POST ENTERS HERE -->
+                        </p>
+                    </div>
+                    <hr>
+                    <!--               COMMENTS-->
+                    <p><b>Comments</b></p>
+                    <br>
+                    <div th:each="comment : ${post.comments}">
+                        <p th:text="${comment.content}" ></p>
+                        <a th:href="@{/update/{id}(id = ${comment.id})}">edit</i>
+                        </a>
+                        <a th:href="@{/deleteComment/{id}/{postID}(id = ${comment.id}, postID= ${post.id})}">delete</i>
+                        </a>
+                    </div>
+
+                    <hr>
+                    <form th:action="@{/comment/{id}(id = ${post.id})}" th:object="${comment}" method="POST">
+                        <textarea th:field="*{content}" class="form-control" placeholder="Enter comments here"></textarea>
+                        <button type="submit" class="btn btn-primary btn-md mt-3 btn-block">Comment</button>
+                    </form>
+
+
+                    <span style="display: flex; justify-content: space-between">
+
+                  <a th:if="${session.containsKey('user_session')}"  th:href="@{'/edit/' + ${post.getId()}}">Edit</a>
+
+                        <!-- DELETING POST -->
+                <a th:if="${session.containsKey('user_session')}" th:href="@{'/delete/' + ${post.getId()}}">Delete</a>
+
+              </span>
+                </div>
+            </div>
+        </div>
+
+    </tr>
+
+    </div>
+
+</main>
+<footer>
+    <p>&copy; 2023 clone</p>
+</footer>
+</body>
+</html>
+
+
+
+
+
+<!--<body>-->
+<!--<nav class="navbar mb-5 navbar-expand-lg navbar-light bg-light">-->
+<!--    <div class="container-fluid">-->
+<!--        <li class="nav-item" th:if="${session.containsKey('user_session')}" th:text="${session.user_session.getFirstName()}">-->
+<!--            <a class="navbar-brand" href="timeline.html"><b class="javabook">Facebook</b></a>-->
+<!--            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </button>-->
+<!--            <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--                <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                </ul>-->
+<!--                <div class="d-flex">-->
+<!--                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                        <li class="nav-item">-->
+<!--                        </li>-->
+
+
+<!--                        <form th:action="@{/logout}" method="post">-->
+<!--                            <button type="submit" class="btn btn-outline-primary btn-sm">Logout</button>-->
+<!--                        </form>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--    </div>-->
+<!--</nav>-->
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <div class="col-lg-3">-->
+<!--            <div class="shadow p-3 mb-5 bg-body rounded text-center">-->
+<!--                &lt;!&ndash; <img class="profile-pic-icon-three mt-4" src="images/edema.jpeg" alt=""> &ndash;&gt;-->
+<!--                <b><p th:if="${session.containsKey('user_session')}" th:text="${session.user_session.getFullName()}"></p></b>-->
+<!--                <p><b>Lagos, Nigeria</b></p>-->
+<!--                <P><a href="#" target="_blank"></a></p>-->
+<!--                <p> Joined May 2020</p>-->
+<!--            </div>-->
+<!--        </div>-->
+
+
+<!--        <div class="col-lg-6">-->
+<!--            <div class="shadow p-3 mb-5 bg-body rounded">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-1">-->
+<!--                        &lt;!&ndash; <img class="profile-pic-icon-two" src="images/edema.jpeg" alt=""> &ndash;&gt;-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-11 text-right">-->
+
+<!--                        &lt;!&ndash; FORM FOR POSTING  &ndash;&gt;-->
+<!--                        <form th:action="@{/saveNewPost}" th:object="${newPost}" method="POST">-->
+<!--                            <textarea  th:field="*{postBody}" class="form-control drag" placeholder="What's on your mind?"></textarea>-->
+<!--                            <button type="submit" class="btn btn-primary btn-md mt-3 btn-block">Post</button>-->
+<!--                        </form>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash;            POSTSSS&ndash;&gt;-->
+
+<!--            <div class="row">-->
+<!--                <div><h4 class="mb-4">Posts</h4></div>-->
+<!--            </div>-->
+
+
+<!--            <tr th:each="post : ${listPosts}">-->
+<!--                <div  id="section-one" class="shadow p-3 mb-5 bg-body rounded">-->
+<!--                    <div class="row">-->
+<!--                        <div class="post">-->
+
+<!--                            <hr>-->
+<!--                            <b><p th:text="${post.getUser().getFullName()}"></p></b>-->
+<!--                            <hr>-->
+<!--                            <div >-->
+<!--                                <p th:text="${post.postBody}">-->
+<!--                                    PLACEHOLDER-->
+<!--                                    &lt;!&ndash; POST ENTERS HERE &ndash;&gt;-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <hr>-->
+
+<!--                            &lt;!&ndash;               COMMENTS&ndash;&gt;-->
+<!--                            <p><b>Comments</b></p>-->
+<!--                            <br>-->
+<!--                            <div th:each="comment : ${post.comments}">-->
+<!--                                <p th:text="${comment.commentBody}" ></p>-->
+<!--                                <a th:href="@{/update/{id}(id = ${comment.id})}">edit</i>-->
+<!--                                </a>-->
+<!--                                <a th:href="@{/deleteComment/{id}/{postID}(id = ${comment.id}, postID= ${post.id})}">delete</i>-->
+<!--                                </a>-->
+<!--                            </div>-->
+
+<!--                            <hr>-->
+<!--                            <form th:action="@{/comment/{id}(id = ${post.id})}" th:object="${comment}" method="POST">-->
+<!--                                <textarea th:field="*{commentBody}" class="form-control" placeholder="Enter comments here"></textarea>-->
+<!--                                <button type="submit" class="btn btn-primary btn-md mt-3 btn-block">Comment</button>-->
+<!--                            </form>-->
+
+
+<!--                            <span style="display: flex; justify-content: space-between">-->
+
+<!--    &lt;!&ndash;                            LIKE AND UNLIKE&ndash;&gt;-->
+
+<!--                                &lt;!&ndash;                <form th:action="@{/like/{id}(id=${post.getId()})}" method="post" th:object="${newPostLike}">&ndash;&gt;-->
+<!--                                &lt;!&ndash;              <button type="submit" value="" class="btn btn-success btn-md mt-3 btn-block"  th:text="${post.getLikes().size()} + ' ' + Like">Like</button>&ndash;&gt;-->
+<!--                                &lt;!&ndash;            </form>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                 <span th:text="${totalLikesOnPost}"></span>&ndash;&gt;-->
+<!--                                &lt;!&ndash;                <div class="row text-center">&ndash;&gt;-->
+
+<!--                                &lt;!&ndash;             EDITING BUTTON&ndash;&gt;-->
+
+<!--                  <a  class="btn btn-primary btn-md mt-3 btn-block" th:if="${session.containsKey('user_session')}"  th:href="@{'/edit/' + ${post.getId()}}">Edit</a>-->
+
+<!--                                &lt;!&ndash; DELETING POST &ndash;&gt;-->
+<!--                <a class="btn btn-danger" th:if="${session.containsKey('user_session')}" th:href="@{'/delete/' + ${post.getId()}}">Delete</a>-->
+
+<!--              </span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--            </tr>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+<!--</div>-->
+<!--<div class="container">-->
+<!--    <div class="row">-->
+<!--        <nav aria-label="...">-->
+<!--            <ul class="pagination justify-content-center">-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>-->
+<!--                </li>-->
+<!--                <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--                <li class="page-item" aria-current="page">-->
+<!--                    <a class="page-link" href="#">2</a>-->
+<!--                </li>-->
+<!--                <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                <li class="page-item">-->
+<!--                    <a class="page-link" href="#">Next</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<footer class="text-center mt-5 mb-5">Facebook - 2021</footer>-->
+<!--</body>-->

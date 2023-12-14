@@ -1,0 +1,318 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml"-->
+<!--      xmlns:th="https://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>FaceBook - Welcome</title>-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" href="css/bootstrap.min.css">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <link rel="stylesheet" href="css/style.css">&ndash;&gt;-->
+<!--    <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap5.3.2/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">-->
+<!--    <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap5.3.2/dist/js/bootstrap.bundle.min.js}" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>-->
+<!--    <style>-->
+<!--        body  {-->
+<!--        background-color: #f0f2f5;-->
+<!--    }-->
+<!--    a {-->
+<!--        text-decoration: none;-->
+<!--    }-->
+<!--    .welcome {-->
+<!--        margin-top: 15%;-->
+<!--        margin-left: 10%;-->
+<!--        margin-right: 10%;-->
+<!--    }-->
+<!--    .signup {-->
+<!--        margin-top: 5%;-->
+<!--        margin-left: 10%;-->
+<!--        margin-right: 10%;-->
+<!--    }-->
+<!--    .signupsuccess {-->
+<!--        margin-top: 20%;-->
+<!--        margin-left: 10%;-->
+<!--        margin-right: 10%;-->
+<!--    }-->
+<!--    .javabook{-->
+<!--        color: #3096f5 !important;-->
+<!--    }-->
+
+<!--    .logo {-->
+<!--        color: #1877f2;-->
+<!--        font-weight: bold;-->
+<!--    }-->
+<!--    .JavaFacebook {-->
+<!--        font-size: 27px;-->
+<!--        line-height: 28px;-->
+<!--        width: auto;-->
+<!--        font-weight: 400;-->
+<!--    }-->
+<!--    .divider {-->
+<!--        border-bottom: 1px solid #dadde1;-->
+<!--    }-->
+
+<!--    .btn-primary:hover {-->
+<!--        background-color: #1b64c1;-->
+<!--    }-->
+<!--    .btn-green {-->
+<!--        background-color: #55b72d;-->
+<!--        color: #fff;-->
+<!--    }-->
+
+<!--    .btn-green:hover {-->
+<!--        color: #fff;-->
+<!--        background-color: #46a221;-->
+<!--    }-->
+<!--    .profile-pic-icon {-->
+<!--        width: 25px;-->
+<!--        height: 25px;-->
+<!--        border-radius: 20px;-->
+<!--    }-->
+<!--    .profile-pic-icon-two {-->
+<!--        width: 40px;-->
+<!--        height: 40px;-->
+<!--        border-radius: 20px;-->
+<!--    }-->
+<!--    .profile-pic-icon-three {-->
+<!--        width: 150px;-->
+<!--        height: 150px;-->
+<!--        border-radius: 100%;-->
+<!--    }-->
+<!--    .profile-info {-->
+<!--        width: 15px;-->
+<!--        height: 15px;-->
+<!--        margin-right: 10px;-->
+<!--        border-radius: 20px;-->
+<!--    }-->
+
+<!--    .create-post-icon {-->
+<!--        width: 25px;-->
+<!--        height: 25px;-->
+<!--        border-radius: 20px;-->
+<!--        background-color: #e4e6eb;-->
+<!--    }-->
+<!--    .like {-->
+<!--        width: 20px;-->
+<!--        height: 20px;-->
+<!--    }-->
+<!--    .delete {-->
+<!--        width: 20px;-->
+<!--        height: 20px;-->
+<!--    }-->
+<!--    .like-post {-->
+<!--        margin-left: 10px;-->
+<!--    }-->
+<!--    .comment {-->
+<!--        margin-left: 10px;-->
+<!--    }-->
+<!--    .logout {-->
+<!--        width: 25px;-->
+<!--        height: 25px;-->
+<!--        border-radius: 20px;-->
+<!--        background-color: #e4e6eb;-->
+<!--    }-->
+<!--    .post-image {-->
+<!--        width: 100%;-->
+<!--    }-->
+<!--    .drag{-->
+<!--        resize: none;-->
+<!--    }-->
+<!--    .custom-file-input-->
+<!--    {-->
+<!--        margin-left: 20%;-->
+<!--        margin-right: 20%;-->
+<!--    }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container mt-5">-->
+<!--    <div class="row welcome">-->
+<!--        <div class="col-lg-7">-->
+<!--            <img src="" alt="">-->
+<!--            <h1 class="logo pb-2">FaceBook</h1>-->
+<!--            <h2 class="JavaFacebook mb-5">FaceBook helps you connect and share <br>with the people in your life.</h2>-->
+<!--        </div>-->
+<!--        <div class="col-lg-5">-->
+<!--            <div class="shadow p-3 mb-5 bg-body rounded">-->
+
+<!--                <div class="shadow p-3 mb-5 bg-body rounded">-->
+<!--                    <div>-->
+<!--                        <p th:if="${not_found}" th:text="${not_found}" class="text-danger"> Invalid user placeholder</p>-->
+<!--                    </div>-->
+<!--                    <form  action="#" th:action= "@{/login}" th:object="${user}" method="POST">-->
+<!--                        <input th:field = "*{userName}" class="form-control mb-3" type="text" name="email" value="" placeholder="Email Address">-->
+<!--                        <input th:field = "*{passWord}" class="form-control" type="Password" name="password" value="" placeholder="Password">-->
+<!--                        <div class="d-grid gap-2 mt-3">-->
+<!--                            <button type="submit" class="btn btn-primary btn-lg">Log In</button>-->
+<!--                            &lt;!&ndash;            <p class="text-center mt-2"><a href="/resetpassword">Forgotten password?</a></p>&ndash;&gt;-->
+<!--                            <div class="divider"></div>-->
+<!--                            <a th:href ="@{/signup}" class="btn btn-green btn-lg mt-3 mb-3">-->
+<!--                                Create New Account-->
+<!--                            </a>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .box h1 {
+            color: #1877f2; /* Facebook blue color */
+        }
+
+        .box img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+
+        .box h4 {
+            color: #333; /* Dark gray color */
+        }
+        .text-danger{
+            background-color: #ffc8dd;
+            padding: 15px;
+            border-radius: 12px;
+            margin: 10px
+        }
+
+        .sec2 form {
+            text-align: center;
+        }
+
+        .sec2 label {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .sec2 input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f2f5;
+        }
+        .sec2 input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f2f5;
+        }
+
+        .sec2 input[type="submit"] {
+            background-color: #1877f2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 80%;
+            margin: 10px 0;
+        }
+        button {
+            background-color: rgb(33, 185, 33);
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 80%;
+            margin: 10px 0;
+        }
+
+        .sec2 .create_btn {
+            margin: 10px 0;
+        }
+
+        .sec2 .create_btn a {
+            text-decoration: none;
+            color: #1877f2;
+        }
+
+        .sec2 .create_btn a:hover {
+            text-decoration: underline;
+        }
+        .sec2 input[type="submit"]:hover {
+            background-color: #1157d2;
+        }
+        button:hover{
+            background-color:green;
+        }
+    </style>
+    <title>Facebook - Login to your account</title>
+    <meta name="description" content="Login using email or username and password">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#006AFF">
+</head>
+<body>
+<div class="box">
+    <section>
+        <div id="sec1">
+            <h1 class="sec1" style="color: blue">Welcome To</h1>
+            <div class="first_img">
+                <img src="https://i.postimg.cc/NMyj90t9/logo.png" alt="Facebook">
+            </div>
+        </div>
+    </section>
+    <br/>
+
+    <section style="text-align: center"><h4>Facebook helps you connect and share with the people in your life.</h4></section>
+    <div class="sec2">
+        <form action="#" th:action= "@{/login}" th:object="${user}" method="POST">
+            <div class="text-danger">
+                <p th:if="${not_found}" th:text="${not_found}"> Invalid user placeholder</p></div>
+<!--            <% if(request.getSession().getAttribute("login_error") != null) {%>-->
+<!--            <div style="background-color: #ffc8dd; padding: 15px; border-radius: 12px; margin: 10px 0">-->
+<!--                <p style=" color:red;-->
+<!--          text-align: start;-->
+<!--          margin-block-start: 0;-->
+<!--          margin-block-end: 0;">Incorrect password or username.</p>-->
+<!--            </div><%}%>-->
+            <label>
+                <input th:field="*{userName}" type="text" name="username" placeholder="username" required/>
+            </label><br/>
+            <label>
+                <input th:field="*{passWord}" type="password" name="password" placeholder="password" required/>
+            </label><br/>
+            <input type="submit" name="login" value="Log in"/><br/>
+        </form>
+        <a th:href ="@{/signup}" target="_blank">
+            <button type="submit" value="Create New Account">Create New Account</button></a>
+        <hr>
+        <p style="color: #555555;font-size: 12px;">Don't have an account?</p>
+        <div class="create_btn">
+            <a th:href ="@{/signup}" target="_blank">Create New Account</a>
+        </div>
+    </div>
+</div>
+</body>
+
+

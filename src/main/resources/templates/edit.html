@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body  {
+            background-color: #f0f2f5;
+        }
+        a {
+            text-decoration: none;
+        }
+
+
+        .btn-primary:hover {
+            background-color: #1b64c1;
+        }
+
+        .drag{
+            resize: none;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <form th:action="@{/edit_post}" th:object="${newPost}" method="post">
+        <input type="hidden" th:field="*{id}" />
+        <textarea th:field="*{content}" class="form-control drag" placeholder="update here"></textarea>
+        <button type="submit" class="btn btn-primary btn-md mt-3 btn-block" >Update</button>
+    </form>
+</div>
+</body>
+</html>

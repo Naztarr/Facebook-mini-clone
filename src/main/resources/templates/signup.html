@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Facebook Signup</title>
+    <style>
+        body {
+            font-family: "Helvetica Neue", sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .box {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title-box {
+            text-align: left;
+            color: #166fe5;
+        }
+
+        .title-box p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        .title-box hr {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+
+        form label {
+            display: block;
+            margin: 10px 0;
+            text-align: left;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 95%;
+            padding: 10px;
+            margin: 8px 0px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f2f5;
+        }
+        input[type="password"]{
+            width: 95%;
+            padding: 10px;
+            margin: 8px 0px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f0f2f5;
+        }
+
+        select {
+            height: 40px;
+        }
+
+        button {
+            background-color: #1877f2;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #1157d2;
+        }
+
+        .create-btn {
+            margin: 10px 0;
+        }
+
+        .create-btn a {
+            text-decoration: none;
+            color: #1877f2;
+        }
+
+        .create-btn a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="title-box">
+        <p style="font-family: Helvetica Neue, sans-serif; font-size: xxx-large; color: #166fe5; text-align: left ">Sign Up</p>
+        <img src="https://i.postimg.cc/NMyj90t9/logo.png" alt="Facebook"><br/>
+        <p style="text-align: left; font-size: large;">It's quick and easy</p>
+    </div>
+    <hr>
+    <div>
+        <form th:object="${user}" th:action="@{/signupPost}" method="post">
+            <label>
+                <input th:field="*{firstName}" type="text" placeholder="First name" name="firstname" required>
+            </label>
+            <label>
+                <input th:field="*{lastName}" type="text" placeholder="lastname" name="lastname" required>
+            </label>
+            <label><input th:field="*{userName}" type="text" placeholder="Username"  name="username" required></label>
+            <label><input th:field="*{passWord}" type="password" placeholder="New password" name="password" required></label><br/>
+            <p style="text-align: left; height: max-content;"><b>Date Of Birth</b></p>
+            <label><input th:field="*{dateOfBirth}" type="date" required></label>
+            <label>
+                <select th:field="*{gender}">
+<!--                    <option value="GENDER">Gender</option>-->
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </label><br/>
+            <button type="submit" value="Sign Up">Sign Up</button>
+        </form>
+        <hr>
+        <div class="create-btn">
+            <a th:href= "@{/login}" target="_blank">Already have an account? Click here</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
